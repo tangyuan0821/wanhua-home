@@ -1,91 +1,532 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>万花</title>
+    <title>万花 - 维基百科用户帮助</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+        :root {
+            --primary-color: #3eaf7c; /* VitePress绿色 */
+            --text-color: #213547;
+            --border-color: #eaecef;
+            --bg-color: #ffffff;
+            --bg-secondary: #f9f9f9;
+            --header-height: 64px;
+            --sidebar-width: 272px;
+            --code-bg-color: #f6f8fa;
+        }
+        
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-        header {
-            background-color: #fff;
-            color: #333;
-            text-align: center;
-            padding: 1rem;
-            border-bottom: 1px solid #ccc;
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            line-height: 1.6;
+            font-size: 16px;
         }
-        nav {
-            background-color: #f4f4f4;
-            padding: 1rem;
-        }
-        nav a {
-            color: #333;
+        
+        a {
+            color: var(--primary-color);
             text-decoration: none;
-            margin-right: 1rem;
+            transition: color 0.2s ease;
         }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 0 24px;
         }
-        .section {
-            margin-bottom: 2rem;
-        }
-        .section h2 {
-            border-bottom: 2px solid #333;
-            padding-bottom: 0.5rem;
-        }
-        footer {
-            background-color: #fff;
-            color: #333;
-            text-align: center;
-            padding: 1rem;
+        
+        /* Header */
+        header {
+            height: var(--header-height);
             position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        
+        .logo-container h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .logo-container h1 a {
+            color: var(--text-color);
+        }
+        
+        .logo-container h1 a:hover {
+            text-decoration: none;
+        }
+        
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 24px;
+        }
+        
+        .main-nav a {
+            color: var(--text-color);
+            font-weight: 500;
+        }
+        
+        .main-nav a:hover {
+            color: var(--primary-color);
+        }
+        
+        .search-toggle, .menu-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: none;
+        }
+        
+        /* Main content layout */
+        .layout {
+            display: flex;
+            padding-top: var(--header-height);
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: var(--sidebar-width);
+            position: fixed;
+            z-index: 10;
+            margin: 0;
+            top: var(--header-height);
+            left: 0;
             bottom: 0;
-            width: 100%;
-            border-top: 1px solid #ccc;
+            box-sizing: border-box;
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+            background-color: var(--bg-color);
+            padding: 32px 24px;
+        }
+        
+        .sidebar-group {
+            margin-bottom: 20px;
+        }
+        
+        .sidebar-heading {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+        
+        .sidebar-links {
+            list-style: none;
+        }
+        
+        .sidebar-link {
+            padding: 5px 0;
+            display: block;
+            color: var(--text-color);
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+        
+        .sidebar-link:hover {
+            color: var(--primary-color);
+            opacity: 1;
+        }
+        
+        /* Main content */
+        .content {
+            padding: 32px 24px;
+            margin-left: var(--sidebar-width);
+            flex: 1;
+        }
+        
+        .content-container {
+            max-width: 768px;
+            margin: 0 auto;
+        }
+        
+        /* Hero section */
+        .hero {
+            margin: 0 auto;
+            text-align: center;
+            padding: 64px 24px;
+        }
+        
+        .hero-content h2 {
+            font-size: 3rem;
+            line-height: 1.2;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 32px;
+            opacity: 0.8;
+        }
+        
+        .hero-buttons {
+            margin-bottom: 32px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 24px;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .btn:hover {
+            text-decoration: none;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Features section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin: 64px 0;
+        }
+        
+        .feature-card {
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+        }
+        
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 16px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+        }
+        
+        .feature-link {
+            display: inline-block;
+            margin-top: 16px;
+            font-weight: 500;
+        }
+        
+        /* About section */
+        .about {
+            background-color: var(--bg-secondary);
+            padding: 64px 24px;
+            margin: 64px 0;
+            border-radius: 8px;
+        }
+        
+        .about-content {
+            max-width: 768px;
+            margin: 0 auto;
+        }
+        
+        .wiki-group {
+            padding: 24px;
+            background-color: var(--bg-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .wiki-group h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            font-size: 1.5rem;
+        }
+        
+        /* Latest posts */
+        .latest-posts {
+            margin: 64px 0;
+        }
+        
+        .latest-posts h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        
+        .post-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.2s ease;
+            background-color: var(--bg-color);
+        }
+        
+        .post-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .post-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+        
+        .post-meta {
+            font-size: 0.9rem;
+            color: #6a727b;
+            margin-bottom: 16px;
+        }
+        
+        .reading-time {
+            margin-left: 8px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--bg-secondary);
+            padding: 64px 24px 32px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+        
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .social-links a {
+            color: var(--text-color);
+            font-size: 1.2rem;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: #6a727b;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 960px) {
+            .sidebar {
+                display: none;
+            }
+            
+            .content {
+                margin-left: 0;
+            }
+            
+            .search-toggle, .menu-toggle {
+                display: block;
+            }
+            
+            .main-nav {
+                display: none;
+            }
+            
+            .main-nav.active {
+                display: block;
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                right: 0;
+                background-color: var(--bg-color);
+                border-bottom: 1px solid var(--border-color);
+                padding: 16px;
+            }
+            
+            .main-nav.active ul {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>万花</h1>
+        <div class="container header-container">
+            <div class="logo-container">
+                <h1><a href="/">万花</a></h1>
+            </div>
+            <div class="header-actions">
+                <button class="search-toggle" aria-label="切换搜索">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="menu-toggle" aria-label="切换菜单">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav id="main-nav" class="main-nav">
+                    <ul>
+                        <li><a href="/manual/">帮助手册</a></li>
+                        <li><a href="https://github.com/wanhua-home" target="_blank">GitHub</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </header>
-    <nav>
-        <a href="#code-repo">代码托管</a>
-        <a href="#help-docs">帮助手册</a>
-        <a href="#contact">联系我们</a>
-    </nav>
-    <div class="container">
-        <section id="code-repo" class="section">
-            <h2>代码托管</h2>
-            <p>在这里，您可以找到我们的开源项目和代码库。</p>
-            <ul>
-                <li><a href="https://gitlab.com/wanhua-home">GitLab</a></li>
-            </ul>
-        </section>
-        <section id="help-docs" class="section">
-            <h2>帮助手册</h2>
-            <p>以下是我们的帮助文档和使用指南：</p>
-            <ul>
-                <li><a href="docs/getting-started.html">快速入门</a></li>
-                <li><a href="docs/faq.html">常见问题</a></li>
-            </ul>
-        </section>
-        <section id="contact" class="section">
-            <h2>联系我们</h2>
-            <p>如果您有任何问题或建议，请联系我们：</p>
-            <ul>
-                <li>Email: contact@wanhuagit.com</li>>
-            </ul>
-        </section>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="sidebar-group">
+                <p class="sidebar-heading">指南</p>
+                <ul class="sidebar-links">
+                    <li><a href="/guide/intro" class="sidebar-link">关于我们</a></li>
+                    <li><a href="/guide/getting-started" class="sidebar-link">关于维基百科</a></li>
+                    <li><a href="/guide/contribute" class="sidebar-link">帮助手册</a></li>
+                </ul>
+            </div>
+        </aside>
+        
+        <main class="content">
+            <div class="content-container">
+                <section class="hero">
+                    <div class="hero-content">
+                        <h2>万花</h2>
+                        <p>为维基百科用户提供帮助与支持</p>
+                        <div class="hero-buttons">
+                            <a href="#about" class="btn btn-primary">了解更多</a>
+                            <a href="/manual/beginner-guide" class="btn">帮助手册</a>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="features">
+                    <div class="feature-card">
+                        <i class="fas fa-book"></i>
+                        <h3>帮助手册</h3>
+                        <p>精心编写的维基百科编辑指南，从入门到精通</p>
+                        <a href="/manual/" class="feature-link">浏览手册</a>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fab fa-git-alt"></i>
+                        <h3>代码托管</h3>
+                        <p>实用的编辑工具和脚本，提高编辑效率</p>
+                        <a href="/code/" class="feature-link">查看代码</a>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-users"></i>
+                        <h3>用户社群</h3>
+                        <p>加入我们的社群，获取帮助，分享经验</p>
+                        <a href="/community/" class="feature-link">加入社群</a>
+                    </div>
+                </section>
+                
+                <section id="about" class="about">
+                    <div class="about-content">
+                        <div class="wiki-group">
+                            <h3><i class="fas fa-users"></i> 万花</h3>
+                            <p>
+
+                                万花 是一个维基百科站外用户组，致力于为维基百科用户提供帮助与支持。该用户组依附于 [讨论#3] 维基百科 Wikipedia 交流群，通过社区驱动的方式，为用户解答疑问、提供编辑指导或协助解决技术问题。
+                                <br>
+                                万花用户组是一个独立于 维基媒体基金会（WMF） 的组织，不代表维基百科或基金会的官方立场，而是由志愿者自发组成，旨在提升维基百科社区的参与度和编辑体验。无论你是新手编辑者还是经验丰富的贡献者，欢迎加入我们或向我们寻求帮助！
+                                <br>
+                                万花用户组期待与你一同为维基百科的成长贡献力量！</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
     </div>
+    
     <footer>
-        <p>&copy; 2025 Wanhua . All rights reserved.</p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>万花</h4>
+                    <p>致力于为维基百科用户提供帮助和支持</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>快速链接</h4>
+                    <ul>
+                        <li><a href="/about/">关于我们</a></li>
+                        <li><a href="/contact/">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>关注我们</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Github"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 万花. All rights reserved.</p>
+                <p style="margin-top: 10px;">本站独立于维基媒体基金会（WMF）</p>
+            </div>
+        </div>
     </footer>
+
+    <script>
+        // 简单的菜单切换功能
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.getElementById('main-nav').classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
